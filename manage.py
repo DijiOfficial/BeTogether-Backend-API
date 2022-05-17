@@ -5,6 +5,8 @@ import sys
 import logging
 from decouple import config
 
+# python3 -m pip freeze > requirements.txt when installing new packages
+
 try:
     DB_URI = config("DB_URI")
     print("Connected successfully!!!")
