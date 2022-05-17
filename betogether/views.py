@@ -4,11 +4,12 @@ from django.http import JsonResponse, HttpResponse
 from matplotlib.pyplot import install_repl_displayhook
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser
-
+from django.views.decorators.csrf import csrf_exempt
 from betogether.models import User, LearnerProject
 from betogether.serializers import UserSerializer
 
 # Create your views here.
+@csrf_exempt
 def user(req, pk=0):
     if req.method == "GET":
         if pk == 0:
