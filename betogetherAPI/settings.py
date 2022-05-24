@@ -13,9 +13,15 @@ import os
 from pathlib import Path
 from decouple import config
 import django_heroku
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Actual directory user files go to
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'images')
+
+# URL used to access the media
+MEDIA_URL = '/images/'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -28,6 +34,23 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 # CSRF_TRUSTED_ORIGINS = ["https://be-together.herokuapp.com"]
 ALLOWED_HOSTS = []
 
+# ACCOUNT_AUTHENTICATION_METHOD = "username"
+# ACCOUNT_EMAIL_REQUIRED = False
+# ACCOUNT_USERNAME_REQUIRED = True
+
+# AUTHENTICATION_BACKENDS = [
+#     # Needed to login by username in Django admin, regardless of `allauth`
+#     'django.contrib.auth.backends.ModelBackend',
+
+#     # `allauth` specific authentication methods, such as login by e-mail
+#     # 'allauth.account.auth_backends.AuthenticationBackend',
+# ]
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# AUTHENTICATION_BACKENDS = (
+# "django.contrib.auth.backends.ModelBackend",
+# "allauth.account.auth_backends.AuthenticationBackend"
+# )
 
 # Application definition
 
@@ -42,7 +65,20 @@ INSTALLED_APPS = [
     'rest_framework',
     'betogetherAPI',
     'corsheaders',
+    'rest_framework.authtoken',
+    'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.facebook',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',]
+}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
