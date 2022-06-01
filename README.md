@@ -79,7 +79,7 @@ Variables name for posting projects are:
   name: "",
   description: "",
   database_schema_picture: "",
-  mockup_picture: ""
+  mockup_picture: "",
   groupProject: ""
 } 
 ```
@@ -113,3 +113,5 @@ e.g:  https://be-together.herokuapp.com/images/images/9a501_orig_Fy00pSr.jpg to 
 The last routes are unfinished, as there was no frontend to follow I lost motivation to create routes that will never be used.
 See below the algorithm that sorts the groups (uses fake data and doesn't put anything inside the databse)
 The algorithm is based on "The hospital-resident assignment problem" but adapted to the project as projects don't have learner preference.
+
+The python file of The [algorithm](https://github.com/DijiOfficial/BeTogether-Backend-API/blob/master/betogether/algo.py)
