@@ -4,7 +4,7 @@
   - BeTogether will be part of the BeApps tool set for coaches and learners to use.
   - In this BeTogether App the learners will be able to upload descriptions of projects they want to work on.
   - They will then be able to sort through all the propositions and rearrange them in their preferred order.
-  - The app will then create groups based on learners preferences
+  - The app will then create groups based on learners preferences using The [algorithm](https://github.com/DijiOfficial/BeTogether-Backend-API/blob/master/betogether/algo.py)
 
 ## User Stories
   1. As a Coach, I can initiate a new group Project.
