@@ -76,11 +76,11 @@ To add a project "POST" => https://be-together.herokuapp.com/project like this:
 Variables name for posting projects are:
 ```JSON
 {
-  name: "",
-  description: "",
-  database_schema_picture: "",
-  mockup_picture: "",
-  groupProject: ""
+    "name": "",
+    "description": "",
+    "database_schema_picture": "",
+    "mockup_picture": "",
+    "groupProject": ""
 }
 ```
 make sure user is authenticated with the token
