@@ -76,10 +76,11 @@ To add a project "POST" => https://be-together.herokuapp.com/project like this:
 Variables name for posting projects are:
 ```JSON
 {
-  name = "",
-  description = "",
-  database_schema_picture =   "",
-  mockup_picture = ""
+  name: "",
+  description: "",
+  database_schema_picture: "",
+  mockup_picture: ""
+  groupProject: ""
 } 
 ```
 make sure user is authenticated with the token
@@ -109,3 +110,6 @@ e.g:  https://be-together.herokuapp.com/images/images/9a501_orig_Fy00pSr.jpg to 
         "mockup_picture": "/images/images/croco.JPG"
     }
  ```
+The last routes are unfinished, as there was no frontend to follow I lost motivation to create routes that will never be used.
+See below the algorithm that sorts the groups (uses fake data and doesn't put anything inside the databse)
+The algorithm is based on "The hospital-resident assignment problem" but adapted to the project as projects don't have learner preference.
