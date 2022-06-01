@@ -81,7 +81,7 @@ Variables name for posting projects are:
   database_schema_picture: "",
   mockup_picture: "",
   groupProject: ""
-} 
+}
 ```
 make sure user is authenticated with the token
 
