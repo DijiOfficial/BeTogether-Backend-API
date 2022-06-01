@@ -3,7 +3,6 @@ from tabnanny import verbose
 from xml.dom.minidom import CharacterData
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -88,7 +87,7 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):  # => gives permissions for the rest?
         return True
 
-class groupProject(models.Model):
+class GroupProject(models.Model):
     name =                      models.CharField(max_length=128)
     description =               models.TextField()
     final_deadline =            models.DateTimeField()
@@ -102,9 +101,23 @@ class LearnerProject(models.Model):
     description =               models.TextField(blank=False, null=False)
     database_schema_picture =   models.ImageField(upload_to="images", blank=True, null=True)
     mockup_picture =            models.ImageField(upload_to="images", blank=True, null=True)
-    
+    groupProject =              models.ForeignKey(GroupProject, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return self.name
+
+class Groups(models.Model):
+    learnerProject =            models.ForeignKey(LearnerProject, on_delete=models.CASCADE, null=True, blank=True)
+    groupProject =              models.ForeignKey(GroupProject, on_delete=models.CASCADE, null=True, blank=True)
+
+class UserPerGroup(models.Model):
+    groupProject =              models.ForeignKey(GroupProject, on_delete=models.CASCADE, null=True, blank=True)
+    user =                      models.ForeignKey(User, on_delete=models.CASCADE)
+
+class WishList(models.Model):
+    user =                      models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    groupProject =              models.ForeignKey(GroupProject, on_delete=models.CASCADE, null=True, blank=True)
+    whishList =                 models.CharField(max_length=128, blank=False, null=False)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_aut_token(sender, instance=None, created=False, **kwargs):

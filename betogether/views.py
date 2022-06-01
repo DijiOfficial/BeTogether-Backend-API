@@ -6,43 +6,33 @@ from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import permission_classes, api_view
-from betogether.models import User, LearnerProject
-from betogether.serializers import UserSerializer, LearnerProjectSerializer
+from betogether.models import User, LearnerProject, GroupProject, WishList
+from betogether.serializers import UserSerializer, LearnerProjectSerializer, GroupProjectSerializer, WishListSerializer
 # from rest_framework import permissions, viewsets, authentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 
-# class LearnerProjectViewSet(viewsets.ModelViewSet):
-#     queryset = LearnerProject.objects.all()
-#     serializer_class = LearnerProjectSerializer
-#     parser_classes = (MultiPartParser, FormParser)
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly] => mess around with permission leave by default idc
-    # authentication_classes = [authentication.SessionAuthentication] => make usre they authenticated
-
-#     def perform_create(self, serializer):
-#         serializer.save(creator=self.request.user)
-
-# from rest_framework.authtoken.views import ObtainAuthToken
-# from rest_framework.response import Response
-
-# class CustomAuthToken(ObtainAuthToken):
-#     USERNAME_FIELD = "email"
-#     REQUIRED_FIELDS = ["password"]
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data, context={'request': request})
-#         serializer.is_valid(raise_exception=True)
-#         user = serializer.validated_data['user']
-#         token, created = Token.objects.get_or_create(user=user)
-#         return Response({
-#             'token': token.key
-#         })
+@api_view(["POST"])
+@permission_classes((IsAuthenticated,))
+def wishList(req):
+    author = req.user
+    chosenProject = GroupProject.objects.get(id = req.data["id"])
+    project = WishList(user=author, groupProject=chosenProject) 
+    if req.method == "POST":
+        serializer = WishListSerializer(project, data=req.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+# Create your views here.
 
 @api_view(["GET","POST","DELETE"])
 @permission_classes((IsAuthenticated,))
 def learnerProject(req, pk=0):
     author = req.user
-    project = LearnerProject(user=author)
+    chosenProject = GroupProject.objects.get(id = req.data["id"])
+    project = LearnerProject(user=author, groupProject=chosenProject)
+    print(req.data)
     if req.method == "POST":
         serializer = LearnerProjectSerializer(project, data=req.data)
         if serializer.is_valid():
@@ -63,7 +53,13 @@ def learnerProject(req, pk=0):
         return JsonResponse("Deleted Successfully", safe=False)
     return JsonResponse("Unknown method", safe=False)
 
-# Create your views here.
+@api_view(["GET"])
+def groupProject(req):
+    if req.method == "GET":
+        groupProject = GroupProject.objects.all()
+        groupProject_serializer = GroupProjectSerializer(groupProject, many=True)
+    return JsonResponse(groupProject_serializer.data, safe=False)
+
 @csrf_exempt
 def user(req, pk=0):
     if req.method == "GET":

@@ -1,6 +1,6 @@
 from tokenize import group
 from rest_framework import serializers
-from betogether.models import User, groupProject, LearnerProject
+from betogether.models import User, GroupProject,WishList, LearnerProject
 from django.contrib.auth.hashers import make_password
 
 
@@ -24,14 +24,21 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     # validate_password = make_password
 
-class ProjectSerializer(serializers.ModelSerializer):
+class GroupProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = groupProject
+        model = GroupProject
         fields = '__all__'
 
 class LearnerProjectSerializer(serializers.ModelSerializer):
     user = UserSerializer(many=False, read_only=True)
+    groupProject = GroupProjectSerializer(many=False, read_only=True)
     class Meta:
         model = LearnerProject
         fields = '__all__'
 
+class WishListSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False, read_only=True)
+    groupProject = GroupProjectSerializer(many=False, read_only=True)
+    class Meta:
+        model = WishList
+        fields = '__all__'
