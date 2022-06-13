@@ -116,6 +116,7 @@ The algorithm is based on "The hospital-resident assignment problem" but adapted
 
 The python file of The [algorithm](https://github.com/DijiOfficial/BeTogether-Backend-API/blob/master/betogether/algo.py)
 
-The algorithm is based on the Gale–Shapley algorithm, see below:!
-[Gale-Shapley](https://user-images.githubusercontent.com/33450259/173356036-74e57ca9-ee9c-4247-bfe2-dfadcb8b3e65.gif)
+The algorithm is based on the Gale–Shapley algorithm, see below:
+![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/giphy.gif)
+![Gale-Shapley](https://user-images.githubusercontent.com/33450259/173356036-74e57ca9-ee9c-4247-bfe2-dfadcb8b3e65.gif)
 
