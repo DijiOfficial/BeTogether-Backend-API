@@ -115,8 +115,7 @@ See below the algorithm that sorts the groups (uses fake data and doesn't put an
 The algorithm is based on "The hospital-resident assignment problem" but adapted to the project as projects don't have learner preference.
 
 The python file of The [algorithm](https://github.com/DijiOfficial/BeTogether-Backend-API/blob/master/betogether/algo.py)
-
-The algorithm is based on the Gale–Shapley algorithm, see below:
+The algorithm is based on the Gale–Shapley algorithm, but only works with the proposor table and overall hapiness of the results, see below:
 
 ![Gale-Shapley](https://user-images.githubusercontent.com/33450259/173356036-74e57ca9-ee9c-4247-bfe2-dfadcb8b3e65.gif)
 
